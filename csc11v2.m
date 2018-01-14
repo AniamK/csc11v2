@@ -22,7 +22,7 @@ function varargout = csc11v2(varargin)
 
 % Edit the above text to modify the response to help csc11v2
 
-% Last Modified by GUIDE v2.5 14-Jan-2018 21:15:17
+% Last Modified by GUIDE v2.5 14-Jan-2018 21:30:36
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -228,13 +228,19 @@ function btn_findPupil_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 imageDataC = getappdata(handles.axes1,'imageData'); %get image from axes1
-[imageDataC,center,radius] = coarse(imageDataC);
-%imshow(imageDataC);
-center = floor(center);
-radius = floor(radius);
-set(handles.box_xcp,'string',num2str(center(2)));
-set(handles.box_ycp,'string',num2str(center(1)));
-set(handles.box_rcp,'string',num2str(radius));
+chbox = get(handles.chbox_anirudh, 'Value');
+if(chbox==0)
+    disp('checkbox was check');
+    [imageDataC,center,radius] = coarse(imageDataC);
+    %imshow(imageDataC);
+    center = floor(center);
+    radius = floor(radius);
+    set(handles.box_xcp,'string',num2str(center(2)));
+    set(handles.box_ycp,'string',num2str(center(1)));
+    set(handles.box_rcp,'string',num2str(radius));
+else
+    disp('not ready');
+end
 
 % --- Executes on button press in btn_findIris.
 function btn_findIris_Callback(hObject, eventdata, handles)
@@ -268,21 +274,26 @@ ci(2)=str2num(char(get(handles.box_yci,'String')));
 ci(3)=str2num(char(get(handles.box_rci,'String')));
 [ring,parr]=normaliseiris(imageDataN,ci(1),ci(2),ci(3),cp(1),cp(2),cp(3),'normal.bmp',100,300);
 parr=adapthisteq(parr);
-setappdata(handles.figure1,'normalImg',parr);
+%setappdata(handles.figure1,'imageData',parr);
+setappdata(handles.axes1,'imageDataN',parr);
 imshow(parr);
-
+set(handles.btn_save,'Enable','on') 
 
 % --- Executes on button press in btn_save.
 function btn_save_Callback(hObject, eventdata, handles)
 % hObject    handle to btn_save (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+[file,path] = uiputfile('imageOutput.jpg','Save file name');
+save_dir = strcat(path,file);
+disp(save_dir);
+imageDataS = getappdata(handles.axes1,'imageDataN'); %get image from axes1
+imwrite(imageDataS,save_dir);
 
-
-% --- Executes on button press in checkbox1.
-function checkbox1_Callback(hObject, eventdata, handles)
-% hObject    handle to checkbox1 (see GCBO)
+% --- Executes on button press in chbox_anirudh.
+function chbox_anirudh_Callback(hObject, eventdata, handles)
+% hObject    handle to chbox_anirudh (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hint: get(hObject,'Value') returns toggle state of checkbox1
+% Hint: get(hObject,'Value') returns toggle state of chbox_anirudh
