@@ -239,7 +239,18 @@ if(chbox==0)
     set(handles.box_ycp,'string',num2str(center(1)));
     set(handles.box_rcp,'string',num2str(radius));
 else
-    disp('not ready');
+    disp('search iris by daugmans algorithm');
+    [ci,cp,out] = thresh(imageDataC,110,160);
+    set(handles.box_xcp,'string',num2str(cp(2)));
+    set(handles.box_ycp,'string',num2str(cp(1)));
+    set(handles.box_rcp,'string',num2str(cp(3)));
+    set(handles.box_xci,'string',num2str(ci(2)));
+    set(handles.box_yci,'string',num2str(ci(1)));
+    set(handles.box_rci,'string',num2str(ci(3)));
+    imshow(imageDataC);
+    h = viscircles([cp(2),cp(1)],cp(3));
+    h = viscircles([ci(2),ci(1)],ci(3));
+    disp('aa complated');
 end
 
 % --- Executes on button press in btn_findIris.
