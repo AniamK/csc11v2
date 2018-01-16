@@ -86,9 +86,9 @@ imshow(imageData);
 set(handles.box_xcp,'string','0');
 set(handles.box_ycp,'string','0');
 set(handles.box_rcp,'string','0');
-set(handles.box_xci,'string','0');
-set(handles.box_yci,'string','0');
-set(handles.box_rci,'string','0');
+set(handles.box_xci,'string',num2str(ci(2)));
+set(handles.box_yci,'string',num2str(ci(1)));
+set(handles.box_rci,'string',num2str(ci(3)));
 
 
 function box_xcp_Callback(hObject, eventdata, handles)
