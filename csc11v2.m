@@ -235,8 +235,8 @@ if(chbox==0)
     %imshow(imageDataC);
     center = floor(center);
     radius = floor(radius);
-    set(handles.box_xcp,'string',num2str(center(2)));
-    set(handles.box_ycp,'string',num2str(center(1)));
+    set(handles.box_xcp,'string',num2str(center(1)));
+    set(handles.box_ycp,'string',num2str(center(2)));
     set(handles.box_rcp,'string',num2str(radius));
 else
     disp('search iris by daugmans algorithm');
