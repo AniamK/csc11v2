@@ -22,7 +22,7 @@ function varargout = csc11v2(varargin)
 
 % Edit the above text to modify the response to help csc11v2
 
-% Last Modified by GUIDE v2.5 14-Jan-2018 21:30:36
+% Last Modified by GUIDE v2.5 18-Jan-2018 14:53:09
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -271,11 +271,21 @@ set(handles.box_xci,'string',num2str(center(2)));
 set(handles.box_yci,'string',num2str(center(1)));
 set(handles.box_rci,'string',num2str(radius));
 
-% --- Executes on button press in btn_fE.
-function btn_fE_Callback(hObject, eventdata, handles)
-% hObject    handle to btn_fE (see GCBO)
+% --- Executes on button press in btn_local.
+function btn_local_Callback(hObject, eventdata, handles)
+% hObject    handle to btn_local (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+imageData = getappdata(handles.axes1,'imageData'); %get image from axes1
+imshow(imageData);
+cp(1)=str2num(char(get(handles.box_xcp,'String')));
+cp(2)=str2num(char(get(handles.box_ycp,'String')));
+cp(3)=str2num(char(get(handles.box_rcp,'String')));
+ci(1)=str2num(char(get(handles.box_xci,'String')));
+ci(2)=str2num(char(get(handles.box_yci,'String')));
+ci(3)=str2num(char(get(handles.box_rci,'String')));
+h = viscircles([cp(1),cp(2)],cp(3));
+h = viscircles([ci(1),ci(2)],ci(3));
 
 
 % --- Executes on button press in btn_nor.
