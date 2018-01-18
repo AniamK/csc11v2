@@ -81,6 +81,7 @@ function btn_load_Callback(hObject, eventdata, handles)
 [filename, pathname]=uigetfile('*.*','Choose an image');
 imageData=imread(strcat(pathname,filename));
 setappdata(handles.axes1,'imageData',imageData);
+setappdata(handles.axes1,'fileName',filename);
 axes(handles.axes1);
 imshow(imageData);
 set(handles.box_xcp,'string','0');
@@ -266,8 +267,8 @@ function btn_findIris_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 imageDataF = getappdata(handles.axes1,'imageData'); %get image from axes1
 [center, radius] = fine(imageDataF);
-set(handles.box_xci,'string',num2str(center(1)));
-set(handles.box_yci,'string',num2str(center(2)));
+set(handles.box_xci,'string',num2str(center(2)));
+set(handles.box_yci,'string',num2str(center(1)));
 set(handles.box_rci,'string',num2str(radius));
 
 % --- Executes on button press in btn_fE.
@@ -301,7 +302,8 @@ function btn_save_Callback(hObject, eventdata, handles)
 % hObject    handle to btn_save (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-[file,path] = uiputfile('imageOutput.jpg','Save file name');
+filename = getappdata(handles.axes1,'fileName'); %get image from axes1
+[file,path] = uiputfile(filename,'Save file name');
 save_dir = strcat(path,file);
 disp(save_dir);
 imageDataS = getappdata(handles.axes1,'imageDataN'); %get image from axes1
